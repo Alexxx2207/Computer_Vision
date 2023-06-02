@@ -8,11 +8,11 @@
 
 class EdgeMask {
     public:
-        const int size = 11;
-        const int radius = 5;
+        const int size = 7;
+        const int radius = 3;
 };
 
-void Sharpening(cv::Mat workingImage, cv::Mat sourceImage);
+void FindingEdge(cv::Mat workingImage, cv::Mat sourceImage);
 
 void ImageBlur(cv::Mat workingImage, int size);
 
@@ -36,22 +36,20 @@ int main(int, char**) {
 
     ImageBlur(workingImage, mask.size);
 
-    Sharpening(workingImage, sourceImage);
+    FindingEdge(workingImage, sourceImage);
 
-    cv::imshow("Sharpened Image", workingImage);
+    cv::imshow("Edged Image", workingImage);
 
     cv::waitKey();
 }
 
-void Sharpening(cv::Mat workingImage, cv::Mat sourceImage)
+void FindingEdge(cv::Mat workingImage, cv::Mat sourceImage)
 {
     for (int row = 0; row < workingImage.rows; row++)
     {
         for (int col =  0; col < workingImage.cols; col++)
         {
             workingImage.at<cv::Vec3b>(row, col) = sourceImage.at<cv::Vec3b>(row, col) - workingImage.at<cv::Vec3b>(row, col);
-
-            workingImage.at<cv::Vec3b>(row, col) += sourceImage.at<cv::Vec3b>(row, col);
         }
     }
 }
