@@ -1,4 +1,3 @@
-#include <algorithm>
 #include <opencv2/opencv.hpp>
 
 #include "../Contracts/Mask.hpp"

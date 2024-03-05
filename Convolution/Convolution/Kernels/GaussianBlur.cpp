@@ -5,12 +5,11 @@
 #include "GaussianBlur.hpp"
 
 #ifndef PI
-    #define PI 3.141592
+#define PI 3.141592
 #endif
 
-
-GaussianBlur::GaussianBlur(int kernel_radius, double sigma)
-    : Mask(kernel_radius)
+GaussianBlur::GaussianBlur(double sigma)
+    : Mask(ceil(3*sigma))
 {
     this->sigma = sigma;
     double common_expression = 2.0 * this->sigma * this->sigma;
@@ -25,9 +24,9 @@ GaussianBlur::GaussianBlur(int kernel_radius, double sigma)
             int col_index = this->kernel_radius + col;
 
             this->kernel[row_index + col_index] =
-                exp( -(row * row + col * col) / common_expression ) / ( PI * common_expression );
+                exp(-(row * row + col * col) / common_expression) / (PI * common_expression);
 
-            sum += this->kernel[row_index + col_index];    
+            sum += this->kernel[row_index + col_index];
         }
     }
 
@@ -41,4 +40,3 @@ GaussianBlur::GaussianBlur(int kernel_radius, double sigma)
 }
 
 GaussianBlur::~GaussianBlur() {}
-
